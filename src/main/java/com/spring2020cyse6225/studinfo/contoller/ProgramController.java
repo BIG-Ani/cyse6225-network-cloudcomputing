@@ -47,17 +47,11 @@ public class ProgramController {
         return programService.getProgramById(String.valueOf(programService.getAllPrograms().size()));
     }
 
-    /**
-     * @Description: localhost:8080/program/3
-     * @Params: put
-     * @Time: 2/19/20
-    **/
     @PutMapping("/program/{programId}")
     public Program updateProgram(@PathVariable String programId,
                                  Program program) {
-        Program updateProgram = programService.getProgramById(programId);
+        Program updateProgram = programService.updateProgram(programId, program);
 
-        updateProgram.setProgramName(program.getProgramName());
         return updateProgram;
     }
 

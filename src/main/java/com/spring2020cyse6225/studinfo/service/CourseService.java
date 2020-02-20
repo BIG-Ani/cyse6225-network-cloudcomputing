@@ -84,12 +84,12 @@ public class CourseService {
         return deleteProgram;
     }
 
-    public Course updateProgram(String programId, Course course) {
-        Course updateProgram = courseDB.get(programId);
+    public Course updateCourse(String courseId, Course course) {
+        Course updateCourse = courseDB.get(courseId);
 
-        updateProgram.setCourseName(course.getCourseName());
-        updateProgram.setProfessor(course.getProfessor());
-        updateProgram.setCourseLecture(course.getCourseLecture());
-        return updateProgram;
+        updateCourse.setCourseName(course.getCourseName());
+        updateCourse.setProfessor(course.getProfessor());
+        updateCourse.setCourseLecture(course.getCourseLecture());
+        return updateCourse;
     }
 }
