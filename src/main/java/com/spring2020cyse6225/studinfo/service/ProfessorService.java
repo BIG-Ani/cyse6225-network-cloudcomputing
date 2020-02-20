@@ -34,8 +34,9 @@ public class ProfessorService {
         long nextAvailableId = prof_Map.size() + 1;
 
         //Create a Professor Object
-        Professor prof = new Professor(firstName+lastName, firstName , lastName,
-                department, joiningDate.toString());
+        String profId = String.valueOf(nextAvailableId);
+        Professor prof = new Professor(profId, firstName , lastName,
+                department, profId, joiningDate.toString());
 
         prof_Map.put(nextAvailableId, prof);
     }
@@ -61,10 +62,15 @@ public class ProfessorService {
 
     // Updating Professor Info
     public Professor updateProfessorInformation(String profId, Professor prof) {
-        Professor oldProfObject = prof_Map.get(profId);
-        profId = oldProfObject.getProfessorId();
-        prof.setProfessorId(profId);
-        return prof;
+        Professor oldProfObject = prof_Map.get(Long.parseLong(profId));
+//        profId = oldProfObject.getProfessorId();
+//        prof.setProfessorId(profId);
+
+        oldProfObject.setFirstName(prof.getFirstName());
+        oldProfObject.setLastName(prof.getLastName());
+        oldProfObject.setDepartment(prof.getDepartment());
+        oldProfObject.setJoiningDate(prof.getJoiningDate());
+        return oldProfObject;
     }
 
     // Get professors in a department
