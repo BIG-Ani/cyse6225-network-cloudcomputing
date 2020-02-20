@@ -49,14 +49,19 @@ public class CourseController {
         return courseService.getCourseById(String.valueOf(courseService.getAllCourses().size()));
     }
 
+    /**
+     * @Description: localhost:8080/course/6
+     * @Params: put
+     * @Time: 2/20/20
+    **/
     @PutMapping("/course/{courseId}")
     public Course updateCourse(@PathVariable String courseId,
                                 Course course) {
-        Course updateCourse = courseService.getCourseById(courseId);
+        Course updateCourse = courseService.updateCourse(courseId, course);
 
-        updateCourse.setCourseName(course.getCourseName());
         return updateCourse;
     }
+
 
     @DeleteMapping("/course/{courseId}")
     public Course deleteCourse(@PathVariable String courseId) {
