@@ -11,6 +11,9 @@ public class Professor {
     private String professorId;
     private String joiningDate;
 
+    public Professor() {
+    }
+
     public Professor(String id,
                      String firstName,
                      String lastName,
