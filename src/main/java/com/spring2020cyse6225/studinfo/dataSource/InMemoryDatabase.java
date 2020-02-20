@@ -1,4 +1,6 @@
-package com.spring2020cyse6225.studinfo.datamodel;
+package com.spring2020cyse6225.studinfo.dataSource;
+
+import com.spring2020cyse6225.studinfo.datamodel.Professor;
 
 import java.util.HashMap;
 

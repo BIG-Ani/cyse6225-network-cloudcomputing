@@ -1,6 +1,6 @@
 package com.spring2020cyse6225.studinfo.service;
 
-import com.spring2020cyse6225.studinfo.datamodel.InMemoryDatabase;
+import com.spring2020cyse6225.studinfo.dataSource.InMemoryDatabase;
 import com.spring2020cyse6225.studinfo.datamodel.Professor;
 import org.springframework.stereotype.Service;
 
