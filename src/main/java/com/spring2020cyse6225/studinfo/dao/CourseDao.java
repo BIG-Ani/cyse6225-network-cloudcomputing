@@ -1,22 +1,23 @@
-package com.spring2020cyse6225.studinfo.service;
+package com.spring2020cyse6225.studinfo.dao;
 
 import com.spring2020cyse6225.studinfo.dataSource.InMemoryDatabase;
 import com.spring2020cyse6225.studinfo.datamodel.Course;
 import com.spring2020cyse6225.studinfo.datamodel.Lecture;
 import com.spring2020cyse6225.studinfo.datamodel.Professor;
 import com.spring2020cyse6225.studinfo.datamodel.Student;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Service
-public class CourseService {
+@Repository
+public class CourseDao {
 
     private static HashMap<String, Course> courseDB = InMemoryDatabase.getCourseDB();
     private static HashMap<String, Student> studentDB = InMemoryDatabase.getStudentDB();
     private static HashMap<Long, Professor> professorDB = InMemoryDatabase.getProfessorDB();
 
-    public CourseService() {
+    public CourseDao() {
         init();
     }
 
@@ -27,13 +28,13 @@ public class CourseService {
         courseDB.get("4").setProfessor(professorDB.get(4));
         courseDB.get("5").setProfessor(professorDB.get(5));
 
-        courseDB.get("1").getEnrolledStudents().put("1", studentDB.get("1"));
-        courseDB.get("1").getEnrolledStudents().put("6", studentDB.get("6"));
-        courseDB.get("2").getEnrolledStudents().put("2", studentDB.get("2"));
-        courseDB.get("2").getEnrolledStudents().put("7", studentDB.get("7"));
-        courseDB.get("3").getEnrolledStudents().put("3", studentDB.get("3"));
-        courseDB.get("4").getEnrolledStudents().put("4", studentDB.get("4"));
-        courseDB.get("5").getEnrolledStudents().put("5", studentDB.get("5"));
+        courseDB.get("1").getEnrolledStudents().put("1", studentDB.get("1").getStudentName());
+        courseDB.get("1").getEnrolledStudents().put("6", studentDB.get("6").getStudentName());
+        courseDB.get("2").getEnrolledStudents().put("2", studentDB.get("2").getStudentName());
+        courseDB.get("2").getEnrolledStudents().put("7", studentDB.get("7").getStudentName());
+        courseDB.get("3").getEnrolledStudents().put("3", studentDB.get("3").getStudentName());
+        courseDB.get("4").getEnrolledStudents().put("4", studentDB.get("4").getStudentName());
+        courseDB.get("5").getEnrolledStudents().put("5", studentDB.get("5").getStudentName());
     }
 
     public List<Course> getAllCourses() {
@@ -49,20 +50,19 @@ public class CourseService {
     public Course getCourseById(String courseId) {
         Course foundCourse = courseDB.get(courseId);
 
-        System.out.println("Course item retrieve: " + foundCourse);
-        System.out.println(foundCourse.toString());
+        System.out.println("Course item retrieve: \n" + foundCourse);
 
         return foundCourse;
     }
 
-    public void addCourse(String courseName) {
+    public Course addCourse(String courseName) {
         String courseId = String.valueOf(courseDB.size() + 1);
 
         Lecture lecture = new Lecture();
         Professor professor = new Professor();
         Student courseTA = new Student();
         Map<String, Object> roster = new HashMap<>();
-        Map<String, Student> studentList = new HashMap<>();
+        Map<String, String> studentList = new HashMap<>();
         Set<Object> board = new HashSet<>();
         Course newCourse = new Course(
                                       courseId,
@@ -75,6 +75,8 @@ public class CourseService {
                                       board);
 
         courseDB.put(courseId, newCourse);
+
+        return newCourse;
     }
 
     public Course deleteCourse(String courseId) {

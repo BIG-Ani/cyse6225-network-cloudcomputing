@@ -1,7 +1,7 @@
 package com.spring2020cyse6225.studinfo.contoller;
 
 import com.spring2020cyse6225.studinfo.datamodel.Course;
-import com.spring2020cyse6225.studinfo.service.CourseService;
+import com.spring2020cyse6225.studinfo.service.serviceImp.CourseServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,49 +11,29 @@ import java.util.List;
 public class CourseController {
 
     @Autowired
-    CourseService courseService;
+    CourseServiceImp courseService;
 
-    /**
-     * @Description: localhost:8080/courses
-     * @Params: get
-     * @Time: 2/20/20
-    **/ 
     @GetMapping("/courses")
     public List<Course> getAllCourses() {
-        List<Course> courseList = courseService.getAllCourses();
+        List<Course> courseList = courseService.findAllCourses();
 
         return courseList;
     }
     
-    /**
-     * @Description: localhost:8080/course/1
-     * @Params: get
-     * @Time: 2/20/20
-    **/ 
     @GetMapping("/course/{courseId}")
     public Course getCourseById(@PathVariable(value = "courseId") String courseId) {
-        Course foundCourse = courseService.getCourseById(courseId);
+        Course foundCourse = courseService.findCourseById(courseId);
 
         return foundCourse;
     }
 
-    /**
-     * @Description: localhost:8080/course
-     * @Params: post
-     * @Time: 2/20/20
-    **/
     @PostMapping("/course")
     public Course addCourse(Course course) {
-        courseService.addCourse(course.getCourseName());
+        Course addCourse = courseService.addNewCourse(course.getCourseName());
 
-        return courseService.getCourseById(String.valueOf(courseService.getAllCourses().size()));
+        return addCourse;
     }
 
-    /**
-     * @Description: localhost:8080/course/6
-     * @Params: put
-     * @Time: 2/20/20
-    **/
     @PutMapping("/course/{courseId}")
     public Course updateCourse(@PathVariable String courseId,
                                 Course course) {
@@ -65,10 +45,29 @@ public class CourseController {
 
     @DeleteMapping("/course/{courseId}")
     public Course deleteCourse(@PathVariable String courseId) {
-        Course deleteCourse = courseService.getCourseById(courseId);
+        Course deleteCourse = courseService.findCourseById(courseId);
 
-        courseService.deleteCourse(courseId);
+        courseService.cancelCourse(courseId);
         return deleteCourse;
     }
 
+    @PutMapping("/course/{courseId}/professor/{professorId}")
+    public Course assignCourseProfessor(@PathVariable String courseId,
+                                        @PathVariable String professorId) {
+
+        courseService.assignProfessor(courseId, professorId);
+        Course course = courseService.findCourseById(courseId);
+
+        return course;
+    }
+
+    @PutMapping("/course/{courseId}/student/{studentId}")
+    public Course assignCourseTA(@PathVariable String courseId,
+                                 @PathVariable String studentId) {
+
+        courseService.assignTA(courseId, studentId);
+        Course course = courseService.findCourseById(courseId);
+
+        return course;
+    }
 }

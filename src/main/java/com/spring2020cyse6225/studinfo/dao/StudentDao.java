@@ -1,15 +1,16 @@
-package com.spring2020cyse6225.studinfo.service;
+package com.spring2020cyse6225.studinfo.dao;
 
 import com.spring2020cyse6225.studinfo.dataSource.InMemoryDatabase;
 import com.spring2020cyse6225.studinfo.datamodel.Student;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class StudentService {
+@Repository
+public class StudentDao {
 
     private static Map<String, Student> studentDB = InMemoryDatabase.getStudentDB();
 
@@ -26,18 +27,19 @@ public class StudentService {
     public Student getStudentById(String courseId) {
         Student foundStudent = studentDB.get(courseId);
 
-        System.out.println("Course item retrieve: " + foundStudent);
-        System.out.println(foundStudent.toString());
+        System.out.println("Student item retrieve:\n" + foundStudent);
 
         return foundStudent;
     }
 
-    public void addStudent(Student student) {
-        // TODO leichenzhou - 2/20/20
+    public Student addStudent(Student student) {
         String studentId = String.valueOf(studentDB.size() + 1);
         student.setStudentId(studentId);
+        student.setProgramName(student.getProgramName());
 
         studentDB.put(studentId, student);
+
+        return student;
     }
 
     public Student deleteStudent(String studentId) {
