@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.CheckedOutputStream;
 
 @Data
 public class Student {
@@ -17,7 +16,8 @@ public class Student {
 
     private String programName;
 
-    private Map<String, Course> courseList = new HashMap<>();
+    // key: courseId, value: courseName
+    private Map<String, String> courseList = new HashMap<>();
 
     public Student() {
     }
@@ -26,7 +26,7 @@ public class Student {
                    String studentName,
                    String image,
                    String programName,
-                   Map<String, Course> courseList
+                   Map<String, String> courseList
                    ) {
         this.studentId = studentId;
         this.studentName = studentName;

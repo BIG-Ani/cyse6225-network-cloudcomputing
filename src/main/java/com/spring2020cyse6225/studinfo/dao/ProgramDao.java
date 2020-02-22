@@ -1,25 +1,26 @@
-package com.spring2020cyse6225.studinfo.service;
+package com.spring2020cyse6225.studinfo.dao;
 
 import com.spring2020cyse6225.studinfo.dataSource.InMemoryDatabase;
 import com.spring2020cyse6225.studinfo.datamodel.Course;
 import com.spring2020cyse6225.studinfo.datamodel.Professor;
 import com.spring2020cyse6225.studinfo.datamodel.Program;
 import com.spring2020cyse6225.studinfo.datamodel.Student;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class ProgramService {
+@Repository
+public class ProgramDao {
 
     private static Map<String, Program> programDB = InMemoryDatabase.getProgramDB();
     private static Map<String, Course> courseDB = InMemoryDatabase.getCourseDB();
     private static Map<String, Student> studentDB = InMemoryDatabase.getStudentDB();
     private static Map<Long, Professor> professorDB = InMemoryDatabase.getProfessorDB();
 
-    public ProgramService() {
+    public ProgramDao() {
         init();
     }
 
@@ -73,8 +74,7 @@ public class ProgramService {
     public Program getProgramById(String programId) {
         Program foundProgram = programDB.get(programId);
 
-        System.out.println("Program item retrieve: " + foundProgram);
-        System.out.println(foundProgram.toString());
+        System.out.println("Program item retrieve:\n" + foundProgram);
 
         return foundProgram;
     }

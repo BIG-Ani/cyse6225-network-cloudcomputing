@@ -1,7 +1,8 @@
-package com.spring2020cyse6225.studinfo.service;
+package com.spring2020cyse6225.studinfo.dao;
 
 import com.spring2020cyse6225.studinfo.dataSource.InMemoryDatabase;
 import com.spring2020cyse6225.studinfo.datamodel.Professor;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,12 +10,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-@Service
-public class ProfessorService {
+@Repository
+public class ProfessorDao {
 
     static HashMap<Long, Professor> prof_Map = InMemoryDatabase.getProfessorDB();
 
-    public ProfessorService() {
+    public ProfessorDao() {
     }
 
     // Getting a list of all professor
@@ -47,8 +48,7 @@ public class ProfessorService {
 
         //Simple HashKey Load
         Professor prof2 = prof_Map.get(Long.parseLong(profId));
-        System.out.println("Item retrieved:");
-        System.out.println(prof2.toString());
+        System.out.println("Item retrieved:\n" + prof2);
 
         return prof2;
     }

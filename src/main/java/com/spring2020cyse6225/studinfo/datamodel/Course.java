@@ -22,7 +22,8 @@ public class Course {
 
     private Map<String, Object> roster = new HashMap<>();
 
-    private Map<String, Student> enrolledStudents = new HashMap<>();
+    // key student id, value - student name
+    private Map<String, String> enrolledStudents = new HashMap<>();
 
     private Set<Object> board = new HashSet<>();
 
@@ -32,7 +33,7 @@ public class Course {
                   Professor professor,
                   Student teachingAssistant,
                   Map<String, Object> roster,
-                  Map<String, Student> enrolledStudents,
+                  Map<String, String> enrolledStudents,
                   Set<Object> board) {
         this.courseId = courseId;
         this.courseName = courseName;

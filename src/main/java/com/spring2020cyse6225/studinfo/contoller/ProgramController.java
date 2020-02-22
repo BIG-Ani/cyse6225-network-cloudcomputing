@@ -1,7 +1,7 @@
 package com.spring2020cyse6225.studinfo.contoller;
 
 import com.spring2020cyse6225.studinfo.datamodel.Program;
-import com.spring2020cyse6225.studinfo.service.ProgramService;
+import com.spring2020cyse6225.studinfo.service.serviceImp.ProgramServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,58 +11,41 @@ import java.util.List;
 public class ProgramController {
 
     @Autowired
-    ProgramService programService;
+    ProgramServiceImp programService;
 
-    /**
-     * @Description: localhost:8080/programs
-     * @Time: 2/19/20
-    **/ 
     @GetMapping("/programs")
     public List<Program> getPrograms() {
-        List<Program> programList = programService.getAllPrograms();
+        List<Program> programList = programService.findAllPrograms();
 
         return programList;
     }
 
-    /**
-     * @Description: localhost:8080/program/1
-     * @Time: 2/19/20
-    **/ 
     @GetMapping("/program/{programId}")
     public Program getProgramById(@PathVariable(value = "programId") String programId) {
-        Program foundProgram = programService.getProgramById(programId);
+        Program foundProgram = programService.findProgramById(programId);
 
         return foundProgram;
     }
 
-    /**
-     * @Description: localhost:8080/program
-     * @Params: post
-     * @Time: 2/19/20
-    **/
     @PostMapping("/program")
     public Program addProgram(Program program) {
         programService.addProgram(program.getProgramName());
+        String newProgramId = String.valueOf(programService.findAllPrograms().size());
 
-        return programService.getProgramById(String.valueOf(programService.getAllPrograms().size()));
+        return programService.findProgramById(newProgramId);
     }
 
     @PutMapping("/program/{programId}")
     public Program updateProgram(@PathVariable String programId,
                                  Program program) {
-        Program updateProgram = programService.updateProgram(programId, program);
+        programService.updateProgramInfo(programId, program);
 
-        return updateProgram;
+        return programService.findProgramById(programId);
     }
 
-    /**
-     * @Description: localhost:8080/program/3
-     * @Params: delete
-     * @Time: 2/19/20
-    **/
     @DeleteMapping("/program/{programId}")
     public Program deleteProgram(@PathVariable String programId) {
-        Program deleteProgram = programService.getProgramById(programId);
+        Program deleteProgram = programService.findProgramById(programId);
 
         programService.deleteProgram(programId);
         return deleteProgram;
